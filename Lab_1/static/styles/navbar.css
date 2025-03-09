@@ -1,0 +1,183 @@
+/* ===== Основні стилі навігаційної панелі ===== */
+.navbar {
+    background-color: rgb(46, 48, 48);
+    display: flex;
+    justify-content: space-between;
+}
+
+#navbar-logo {
+    display: block;
+    margin: 0.7em;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+/* ===== Ліва частина навігації ===== */
+.left-side {
+    display: flex;
+}
+
+.nav-list {
+    display: flex;
+}
+
+.nav-list a {
+    display: block;
+    padding: 1em;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-list a:hover {
+    background-color: rgb(75, 77, 77);
+}
+
+.nav-btn {
+    display: none;
+}
+
+/* ===== Медіа-запит для мобільних пристроїв ===== */
+@media (max-width: 700px) {
+    .nav-btn {
+        display: block;
+        padding-inline: 10px;
+        font-size: 2em;
+        padding-bottom: 3px;
+        border: none;
+        background-color: rgb(46, 48, 48);
+        color: white;
+        cursor: pointer;
+    }
+
+    .nav-list {
+        display: none;
+    }
+
+    .drop:hover .nav-list {
+        display: block;
+        position: absolute;
+        background-color: rgb(46, 48, 48);
+    }
+
+    .notification-drop {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* ===== Права частина навігації ===== */
+.navbar .right-side {
+    display: flex;
+}
+
+.right-side i {
+    font-size: 24px;
+    margin: 0.5em;
+}
+
+#bell {
+    color: yellow;
+}
+
+#user {
+    color: white;
+}
+
+.right-side a {
+    text-decoration: none;
+    color: white;
+}
+
+#name {
+    margin: 1em;
+    margin-left: 0;
+}
+
+/* ===== Інформація про користувача та випадаючий список ===== */
+.user-info {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+}
+
+.user-drop {
+    display: none;
+}
+
+.user-drop a {
+    display: block;
+    padding: 0.5em;
+}
+
+.user-drop a:hover {
+    background-color: rgb(75, 77, 77);
+}
+
+.user-info:hover {
+    background-color: rgb(75, 77, 77);
+}
+    
+.user-info:hover .user-drop {
+    display: block;
+    position: absolute;
+    top: 100%;
+    background-color: rgb(46, 48, 48);
+    left: 0;     
+    width: 100%; 
+    text-align: left;
+}
+
+/* ===== Стилі для сповіщень ===== */
+.notification-wrapper {
+    position: relative;
+}
+
+.notification-drop {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px;
+    background-color: rgb(46, 48, 48);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    padding: 0.5em;
+}
+
+.notification-wrapper:hover .notification-drop {
+    display: block;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notification-item:hover {
+    background-color: rgb(75, 77, 77);
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 0.5em;
+}
+
+.notification-content strong {
+    color: white;
+}
+
+.notification-content p {
+    color: white;
+    margin: 0;
+    font-size: 0.9em;
+}
