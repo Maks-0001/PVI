@@ -37,36 +37,6 @@
     display: none;
 }
 
-/* ===== Медіа-запит для мобільних пристроїв ===== */
-@media (max-width: 700px) {
-    .nav-btn {
-        display: block;
-        padding-inline: 10px;
-        font-size: 2em;
-        padding-bottom: 3px;
-        border: none;
-        background-color: rgb(46, 48, 48);
-        color: white;
-        cursor: pointer;
-    }
-
-    .nav-list {
-        display: none;
-    }
-
-    .drop:hover .nav-list {
-        display: block;
-        position: absolute;
-        background-color: rgb(46, 48, 48);
-    }
-
-    .notification-drop {
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
 /* ===== Права частина навігації ===== */
 .navbar .right-side {
     display: flex;
@@ -80,6 +50,26 @@
 #bell {
     color: yellow;
 }
+
+.notification-wrapper:hover #bell {
+    animation: myAnim 1s ease 0s 1 normal forwards;
+}
+
+.indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    display: block;
+}
+
+.notification-wrapper:hover .indicator {
+    display: block;
+}
+
 
 #user {
     color: white;
@@ -180,4 +170,81 @@
     color: white;
     margin: 0;
     font-size: 0.9em;
+}
+
+@keyframes myAnim {
+	0%,
+	100% {
+		transform: rotate(0deg);
+		transform-origin: 50% 50%;
+	}
+
+	10% {
+		transform: rotate(8deg);
+	}
+
+	20%,
+	40%,
+	60% {
+		transform: rotate(-10deg);
+	}
+
+	30%,
+	50%,
+	70% {
+		transform: rotate(10deg);
+	}
+
+	80% {
+		transform: rotate(-8deg);
+	}
+
+	90% {
+		transform: rotate(8deg);
+	}
+}
+
+.nav-list a.active {
+    text-decoration: underline;
+    color: rgb(236, 236, 153);
+}
+
+/* ===== Медіа-запит для мобільних пристроїв ===== */
+@media (max-width: 600px) {
+    .nav-btn {
+        display: block;
+        padding-inline: 10px;
+        font-size: 2em;
+        padding-bottom: 3px;
+        border: none;
+        background-color: rgb(46, 48, 48);
+        color: white;
+        cursor: pointer;
+    }
+
+    .nav-list {
+        display: none;
+    }
+
+    .drop:hover .nav-list {
+        display: block;
+        position: absolute;
+        background-color: rgb(46, 48, 48);
+    }
+
+    .notification-drop {
+        right: auto;
+        left: 50%;
+        transform: translateX(-90%);
+    }
+
+    #name {
+        display: none;
+    }
+
+    .user-info:hover .user-drop {  
+        width: 300%;
+        transform: translateX(-50%);
+    }
+    
 }

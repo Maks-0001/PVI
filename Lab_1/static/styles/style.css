@@ -1,4 +1,226 @@
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.align {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  letter-spacing: 1px;
+  width: 100%;
+  max-width: 100%;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+th {
+  background: #f4f4f4;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.status {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.green {
+  background: green;
+}
+
+.gray {
+  background: gray;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+  border: none;
+  font-size: 25px;
+  margin-inline: 5px;
+}
+
+.edit {
+  color: black;
+}
+
+.delete {
+  color: black;
+}
+
+.edit:hover {
+  color: rgb(12, 255, 12);
+}
+
+.delete:hover {
+  color: rgb(250, 28, 28);
+}
+
+.pagination {
+  margin-top: 70px;
+  text-align: center;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  margin: 2px;
+  cursor: pointer;
+  border: 1px solid black;
+  background: white;
+  font-size: 15px;
+}
+
+.pagination button.active {
+  background: black;
+  color: white;
+}
+
+.add-btn {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #373a3e;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  text-align: center;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: rgb(192, 241, 241);
+}
+
+.delete-btn {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #373a3e;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+/* Модальне вікно для додавання студента */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+  background-color: white;
+  width: 45%;
+  padding: 20px;
+  margin: auto;
+  margin-top: 10%;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-edit {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input,
+select {
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.modal-buttons button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.cancel-btn,
+.create-btn {
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.cancel-btn {
+  background: #ccc;
+  margin-right: 10px;
+}
+
+.create-btn {
+  background: black;
+  color: white;
+}
+
+.close-delete {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
