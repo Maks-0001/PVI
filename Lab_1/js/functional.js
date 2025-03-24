@@ -84,6 +84,7 @@ addStudentForm.addEventListener("submit", function (event) {
     `;
 
     tbody.appendChild(newRow);
+    toggleRowButtons(newRow, false); 
     addModal.style.display = "none";
     addStudentForm.reset();
 });
@@ -150,35 +151,105 @@ confirmDeleteBtn.addEventListener("click", function () {
     deleteModal.style.display = "none";
 });
 
+window.addEventListener("click", function (event) {
+    if (event.target === deleteModal) {
+        deleteModal.style.display = "none";
+    }
+});
+
+
 // Вибір усіх чекбоксів
 const selectAllCheckbox = document.getElementById("selectAll");
-const rowCheckboxes = document.querySelectorAll(".rowCheckbox");
 
 selectAllCheckbox.addEventListener("change", function () {
+    const rowCheckboxes = document.querySelectorAll(".rowCheckbox");
+    rowCheckboxes.forEach(checkbox => {
+        checkbox.checked = selectAllCheckbox.checked;
+        toggleRowButtons(checkbox.closest("tr"), checkbox.checked);
+    });
+});
+
+// Перевірка стану чекбоксів та активація/деактивація кнопок
+document.addEventListener("change", function (event) {
+    if (event.target.classList.contains("rowCheckbox")) {
+        const studentRow = event.target.closest("tr");
+        toggleRowButtons(studentRow, event.target.checked);
+
+        const rowCheckboxes = document.querySelectorAll(".rowCheckbox");
+        const anyChecked = Array.from(rowCheckboxes).some(checkbox => checkbox.checked);
+        deleteAllBtn.style.display = anyChecked ? "block" : "none";
+
+        const allChecked = Array.from(rowCheckboxes).every(checkbox => checkbox.checked);
+        selectAllCheckbox.checked = allChecked;
+    }
+});
+
+// Функція для активації/деактивації кнопок у рядку
+function toggleRowButtons(row, isEnabled) {
+    const editButton = row.querySelector(".edit");
+    const deleteButton = row.querySelector(".delete");
+
+    if (isEnabled) {
+        editButton.disabled = false;
+        deleteButton.disabled = false;
+        editButton.style.opacity = "1";
+        deleteButton.style.opacity = "1";
+        editButton.style.cursor = "pointer";
+        deleteButton.style.cursor = "pointer";
+    } else {
+        editButton.disabled = true;
+        deleteButton.disabled = true;
+        editButton.style.opacity = "0.5";
+        deleteButton.style.opacity = "0.5";
+        editButton.style.cursor = "not-allowed";
+        deleteButton.style.cursor = "not-allowed";
+    }
+}
+
+// Автоматичне встановлення чекбоксу "selectAll", якщо всі студенти обрані
+document.addEventListener("change", function (event) {
+    if (event.target.classList.contains("rowCheckbox")) {
+        const rowCheckboxes = document.querySelectorAll(".rowCheckbox");
+        const allChecked = Array.from(rowCheckboxes).every(checkbox => checkbox.checked);
+        selectAllCheckbox.checked = allChecked;
+    }
+});
+
+// Ініціалізація стану кнопок для існуючих рядків
+document.querySelectorAll("tbody tr").forEach(row => {
+    const checkbox = row.querySelector(".rowCheckbox");
+    toggleRowButtons(row, checkbox.checked);
+});
+
+// Показати або приховати кнопку видалення всіх студентів
+const deleteAllBtn = document.getElementById("delete-selected");
+deleteAllBtn.style.display = "none";
+
+selectAllCheckbox.addEventListener("change", function () {
+    const rowCheckboxes = document.querySelectorAll(".rowCheckbox");
     rowCheckboxes.forEach(checkbox => {
         checkbox.checked = selectAllCheckbox.checked;
     });
-    toggleButtons();
+    deleteAllBtn.style.display = selectAllCheckbox.checked ? "inline-block" : "none";
 });
 
-// Обробка окремих чекбоксів
-rowCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener("change", function () {
-        // Якщо хоча б один не вибраний, знімаємо галочку з головного
-        selectAllCheckbox.checked = [...rowCheckboxes].every(cb => cb.checked);
-        toggleButtons();
-    });
+document.addEventListener("change", function (event) {
+    if (event.target.classList.contains("rowCheckbox")) {
+        const rowCheckboxes = document.querySelectorAll(".rowCheckbox");
+        const allChecked = Array.from(rowCheckboxes).every(checkbox => checkbox.checked);
+        const anyChecked = Array.from(rowCheckboxes).some(checkbox => checkbox.checked);
+        selectAllCheckbox.checked = allChecked;
+        deleteAllBtn.style.display = allChecked ? "inline-block" : "none";
+    }
 });
 
-// Функція блокування кнопок
-function toggleButtons() {
-    const anyChecked = [...rowCheckboxes].some(cb => cb.checked);
-    document.querySelectorAll(".edit, .delete").forEach(btn => {
-        btn.disabled = !anyChecked;
-        btn.style.opacity = anyChecked ? "1" : "0.5";
-        btn.style.pointerEvents = anyChecked ? "auto" : "none";
-    });
-}
+// Видалення всіх студентів
+deleteAllBtn.addEventListener("click", function () {
+    const tbody = document.querySelector("tbody");
+    tbody.innerHTML = "";
+    selectAllCheckbox.checked = false;
+    deleteAllBtn.style.display = "none";
+});
 
-// Виклик при завантаженні сторінки
-toggleButtons();
+
+

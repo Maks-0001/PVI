@@ -1,0 +1,85 @@
+table {
+  border-collapse: collapse;
+  text-align: center;
+  letter-spacing: 1px;
+  width: 100%;
+  max-width: 100%;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  font-size: 14px;
+}
+
+th {
+  background: #373a3e;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+tr:hover {
+  background-color: #e8f4f8;
+  transition: background-color 0.3s ease;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.status {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+.green {
+  background: green;
+}
+
+.gray {
+  background: gray;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+  margin-inline: 5px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.edit {
+  color: #4caf50;
+}
+
+.delete {
+  color: #f44336;
+}
+
+.edit:hover {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.delete:hover {
+  background-color: #ffebee;
+  color: #d32f2f;
+}

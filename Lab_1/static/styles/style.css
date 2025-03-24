@@ -26,69 +26,6 @@ h1 {
   width: 100%;
 }
 
-table {
-  border-collapse: collapse;
-  text-align: center;
-  letter-spacing: 1px;
-  width: 100%;
-  max-width: 100%;
-}
-
-th,
-td {
-  border: 1px solid black;
-  padding: 10px;
-}
-
-th {
-  background: #f4f4f4;
-}
-
-input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.status {
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-}
-
-.green {
-  background: green;
-}
-
-.gray {
-  background: gray;
-}
-
-button {
-  background: none;
-  cursor: pointer;
-  border: none;
-  font-size: 25px;
-  margin-inline: 5px;
-}
-
-.edit {
-  color: black;
-}
-
-.delete {
-  color: black;
-}
-
-.edit:hover {
-  color: rgb(12, 255, 12);
-}
-
-.delete:hover {
-  color: rgb(250, 28, 28);
-}
-
 .pagination {
   margin-top: 70px;
   text-align: center;
@@ -118,22 +55,35 @@ button {
   text-align: center;
   align-self: flex-end;
   cursor: pointer;
+  display: inline-block;
 }
-
+  
 .add-btn:hover {
-  background-color: rgb(192, 241, 241);
+  background-color: rgb(147, 255, 179);
 }
 
 .delete-btn {
+  display: none;
   width: 30px;
   height: 30px;
   border: 2px solid #373a3e;
   border-radius: 5px;
   margin-bottom: 15px;
-  font-size: 1.5em;
+  font-size: 1.1em;
   text-align: center;
   cursor: pointer;
-  align-self: flex-end;
+  padding-top: 4px;
+}
+
+.delete-btn:hover {
+  background-color: rgb(254, 129, 129);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
 /* Модальне вікно для додавання студента */
@@ -224,3 +174,31 @@ select {
   cursor: pointer;
 }
 
+
+@media (max-width: 768px) {
+  table th:nth-child(4),
+  table td:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  table th:nth-child(5),
+  table td:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  table th:nth-child(2),
+  table td:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  table th:nth-child(6),
+  table td:nth-child(6) {
+    display: none;
+  }
+}
