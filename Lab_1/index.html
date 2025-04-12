@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>Student Editor</title>
   <link rel="stylesheet" href="static/styles/style.css">
   <link rel="stylesheet" href="static/styles/navbar.css">
   <link rel="stylesheet" href="static/styles/table.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="manifest" href="manifest.json"/>
   <script src="js/header.js" defer></script>
+
 </head>
 
 <body>
@@ -28,9 +30,12 @@
         <table>
           <thead>
             <tr>
-              <th><input type="checkbox" id="selectAll"></th>
+              <th>
+                <label for="selectAll" class="visually-hidden">Select All</label>
+                <input type="checkbox" name="selectAll" id="selectAll">
+              </th>
               <th>Group</th>
-              <th>Name</th>
+              <th>Name</th> 
               <th>Gender</th>
               <th>Birthday</th>
               <th>Status</th>
@@ -39,15 +44,18 @@
           </thead>
           <tbody>
             <tr>
-              <td><input type="checkbox" class="rowCheckbox"></td>
+              <td>
+                <label for="rowCheckbox1" class="visually-hidden">Select</label>
+                <input type="checkbox" id="rowCheckbox1" class="rowCheckbox">
+              </td>
               <td>PZ-21</td>
               <td><strong>Max Andreyko</strong></td>
               <td>M</td>
-              <td><strong>31.01.2006</strong></td>
+              <td><strong>2006-01-31</strong></td>
               <td><span class="status green"></span></td>
               <td>
-                <button class="edit"><i class="fas fa-edit"></i></button>
-                <button class="delete"><i class="fas fa-times"></i></button>
+                <button class="edit" aria-label="Edit Student"><i class="fas fa-edit"></i></button>
+                <button class="delete" aria-label="Delete Student"><i class="fas fa-times"></i></button>
               </td>
             </tr>
           </tbody>
@@ -63,79 +71,47 @@
       </div>
     </div>
 
-    <div id="addStudentModal" class="modal">
+    <div id="studentModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Add student</h2>
-        <form id="addStudentForm">
+        <h2 id="modalTitle">Add Student</h2>    
+    
+        <form id="studentForm">
+          <input type="hidden" id="studentId" name="id">
+    
           <label for="group">Group</label>
-          <select id="group" required>
+          <select name="group" id="group" required>
             <option value="">Select Group</option>
             <option value="PZ-21">PZ-21</option>
             <option value="PZ-22">PZ-22</option>
             <option value="PZ-23">PZ-23</option>
             <option value="PZ-24">PZ-24</option>
           </select>
-
+    
           <label for="firstName">First name</label>
-          <input type="text" id="firstName" required>
-
+          <input type="text" id="firstName" name="firstName" required>
+          
           <label for="lastName">Last name</label>
-          <input type="text" id="lastName" required>
-
+          <input type="text" id="lastName" name="lastName" required>
+    
           <label for="gender">Gender</label>
-          <select id="gender" required>
+          <select id="gender" name="gender" required>
             <option value="">Select Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
           </select>
-
+    
           <label for="birthday">Birthday</label>
-          <input type="date" id="birthday" required>
-
+          <input type="date" id="birthday" name="birthday" required>
+    
           <div class="modal-buttons">
-            <button type="button" class="cancel-btn">Cancel</button>
-            <button type="submit" class="create-btn">Create</button>
+            <button type="button" class="cancel-btn" id="cancelButton">Cancel</button>
+            <button type="submit" id="submitButton">Create</button>
           </div>
         </form>
       </div>
     </div>
-
-    <div id="editStudentModal" class="modal">
-      <div class="modal-content">
-        <span class="close-edit">&times;</span>
-        <h2>Edit student</h2>
-        <form id="editStudentForm">
-          <label for="editGroup">Group</label>
-          <select id="editGroup" required>
-            <option value="PZ-21">PZ-21</option>
-            <option value="KN-22">KN-22</option>
-            <option value="PZ-23">PZ-23</option>
-            <option value="PZ-24">PZ-24</option>
-          </select>
-
-          <label for="editFirstName">First name</label>
-          <input type="text" id="editFirstName" required>
-
-          <label for="editLastName">Last name</label>
-          <input type="text" id="editLastName" required>
-
-          <label for="editGender">Gender</label>
-          <select id="editGender" required>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-          </select>
-
-          <label for="editBirthday">Birthday</label>
-          <input type="date" id="editBirthday" required>
-
-          <div class="modal-buttons">
-            <button id="cancel-edit-btn" type="button" class="cancel-btn">Cancel</button>
-            <button type="submit" class="create-btn">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    
 
     <div id="deleteStudentModal" class="modal">
       <div class="modal-content">
@@ -148,7 +124,31 @@
         </div>
       </div>
     </div>
+
+    <div id="deleteAllStudentsModal" class="modal">
+      <div class="modal-content">
+        <span class="close-delete-all">&times;</span>
+        <h2>Warning</h2>
+        <p id="deleteAllMessage">Are you sure you want to delete all students?</p>
+        <div class="modal-buttons">
+          <button id="cancelDeleteAll" class="cancel-btn">Cancel</button>
+          <button id="confirmDeleteAll" class="create-btn">OK</button>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then(() => console.log("Service Worker registered"))
+        .catch((err) => console.error("Service Worker registration failed", err));
+    }
+  </script>
+  
 </body>
 
 </html>
+
+

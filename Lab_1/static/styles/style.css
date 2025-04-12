@@ -103,7 +103,7 @@ h1 {
   width: 45%;
   padding: 20px;
   margin: auto;
-  margin-top: 10%;
+  margin-top: 1%;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
@@ -151,27 +151,163 @@ select {
 }
 
 .cancel-btn,
-.create-btn {
+#submitButton {
   padding: 8px 15px;
   border: none;
   cursor: pointer;
   border-radius: 3px;
 }
-
+  
 .cancel-btn {
   background: #ccc;
   margin-right: 10px;
 }
 
-.create-btn {
+#submitButton {
   background: black;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .close-delete {
   float: right;
   font-size: 24px;
   cursor: pointer;
+}
+/* Модальне вікно для редагування студента */
+#editStudentModal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#editStudentModal .modal-content {
+  background-color: white;
+  width: 50%;
+  padding: 20px;
+  margin: auto;
+  margin-top: 10%;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+#editStudentModal .close-edit {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#editStudentModal form {
+  display: flex;
+  flex-direction: column;
+}
+
+#editStudentModal label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#editStudentModal input,
+#editStudentModal select {
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+#editStudentModal .modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+#editStudentModal .cancel-btn {
+  background: #ccc;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+
+#editStudentModal .save-btn {
+  background: black;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+/* Модальне вікно для видалення всіх студентів */
+#deleteAllStudentsModal .modal-content {
+  background-color: white;
+  width: 40%;
+  padding: 20px;
+  margin: auto;
+  margin-top: 15%;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+}
+
+#deleteAllStudentsModal h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+#deleteAllStudentsModal p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+#deleteAllStudentsModal .modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#deleteAllStudentsModal .cancel-btn {
+  background: #ccc;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#deleteAllStudentsModal .create-btn {
+  background: black;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#deleteAllStudentsModal .close-delete-all {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 
@@ -194,6 +330,13 @@ select {
   table td:nth-child(2) {
     display: none;
   }
+  .modal-content {
+    width: 100%;
+  }
+  
+  #deleteAllStudentsModal .modal-content {
+    width: 100%;
+  }
 }
 
 @media (max-width: 360px) {
@@ -201,4 +344,14 @@ select {
   table td:nth-child(6) {
     display: none;
   }
+}
+
+.input-error {
+  border: 2px solid red;
+}
+
+.error-message {
+  font-size: 0.9em;
+  margin-top: 4px;
+  display: block;
 }

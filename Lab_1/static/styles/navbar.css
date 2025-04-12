@@ -235,7 +235,7 @@
     .notification-drop {
         right: auto;
         left: 50%;
-        transform: translateX(-90%);
+        transform: translateX(-85%);
     }
 
     #name {
