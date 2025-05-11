@@ -12,22 +12,22 @@
   
     "icons": [
       {
-        "src": "/static/images/image 4.png", 
+        "src": "/app/static/images/image 4.png", 
         "sizes": "128x128",
         "type": "image/png"
       },
       {
-        "src": "/static/images/image 4 (1).png", 
+        "src": "/app/static/images/image 4 (1).png", 
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "/static/images/image 4 (2).png", 
+        "src": "/app/static/images/image 4 (2).png", 
         "sizes": "256x256",
         "type": "image/png"
       },
       {
-        "src": "/static/images/image 4 (3).png", 
+        "src": "/app/static/images/image 4 (3).png", 
         "sizes": "512x512",
         "type": "image/png"
       }

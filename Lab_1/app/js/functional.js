@@ -161,11 +161,14 @@ let editingStudentRow = null;
 const validationRules = {
   firstName: {
     regex: /^[A-Z][a-z'-]{0,10}$/,
-    message: "First name must start with a capital letter, contain only English letters, apostrophes or hyphens, and be no longer than 11 characters."
+    message: "First name must start with a capital letter, contain only English letters, apostrophes or hyphens, and be no longer than 11 characters.",
+    forbidden: /@lpnu\.ua/,
   },
+
   lastName: {
     regex: /^[A-Z][a-z'-]{0,10}$/,
-    message: "Last name must start with a capital letter and contain only English letters, hyphens or apostrophes, and be no longer than 11 characters."
+    message: "Last name must start with a capital letter and contain only English letters, hyphens or apostrophes, and be no longer than 11 characters.",
+    forbidden: /@lpnu\.ua/
   },
 
   birthday: {
@@ -190,17 +193,31 @@ function createErrorSpan(input) {
 
 // Функція для валідації поля
 function validateInput(input, rule) {
-  let isValid;
-  if (rule.regex) {
-    isValid = rule.regex.test(input.value.trim());
-  } else if (rule.validate) {
-    isValid = rule.validate(input.value.trim());
-  }
-
+  const value = input.value.trim();
   const errorSpan = createErrorSpan(input);
 
-  // Перевірка чи правильне введення
-  if (!isValid && input.value.trim() !== "") { 
+  if (rule.forbidden && rule.forbidden.test(value)) {
+    input.classList.add("input-error");
+    errorSpan.textContent = "Ви ввели свою пошту!";
+    errorSpan.style.color = "red";
+    return false;
+  }
+
+  if (value.toLowerCase().includes("select")) {
+    input.classList.add("input-error");
+    errorSpan.textContent = "Зловмисник!";
+    errorSpan.style.color = "red";
+    return false;
+  }
+
+  let isValid;
+  if (rule.regex) {
+    isValid = rule.regex.test(value);
+  } else if (rule.validate) {
+    isValid = rule.validate(value);
+  }
+
+  if (!isValid && value !== "") {
     input.classList.add("input-error");
     errorSpan.textContent = rule.message;
     errorSpan.style.color = "red";
@@ -211,6 +228,7 @@ function validateInput(input, rule) {
     return true;
   }
 }
+
 
 function checkFormValidity() {
   const isFirstNameValid = validateInput(firstNameInput, validationRules.firstName);
@@ -239,15 +257,15 @@ function resetValidation() {
 
 // Подія для перевірки на втрату фокусу (коли користувач залишає поле)
 [firstNameInput, lastNameInput, birthdayInput].forEach(input => {
-  input.addEventListener("blur", () => { 
+  input.addEventListener("blur", () => {
     validateInput(input, validationRules[input.id]);
-    checkFormValidity(); 
+    checkFormValidity();
   });
 });
 
 // Перевірка форми при сабміті
 submitButton.addEventListener("click", (event) => {
-  checkFormValidity(); 
+  checkFormValidity();
 });
 
 function openStudentModal(isEdit, studentData = null) {
@@ -270,7 +288,7 @@ function openStudentModal(isEdit, studentData = null) {
   } else {
     modalTitle.textContent = "Add Student";
     submitButton.textContent = "Create";
-    document.getElementById("studentId").value = ""; 
+    document.getElementById("studentId").value = "";
   }
 
   studentModal.style.display = "block";
@@ -290,8 +308,8 @@ document.addEventListener("click", (e) => {
     const gender = row.children[3].textContent;
     const birthday = row.children[4].textContent;
 
-  const id = row.getAttribute("data-id");
-  openStudentModal(true, { group, firstName, lastName, gender, birthday, row, id });
+    const id = row.getAttribute("data-id");
+    openStudentModal(true, { group, firstName, lastName, gender, birthday, row, id });
   }
 });
 
@@ -354,7 +372,7 @@ studentForm.addEventListener("submit", (e) => {
     // якщо створення
     studentId = studentIdCounter++;
     const newRow = document.createElement("tr");
-    newRow.setAttribute("data-id", studentId); 
+    newRow.setAttribute("data-id", studentId);
 
     newRow.innerHTML = `
       <td><input type="checkbox" class="rowCheckbox"></td>
@@ -390,4 +408,93 @@ confirmDeleteAllBtn.addEventListener("click", () => {
   selectAllCheckbox.checked = false;
   deleteAllBtn.style.display = "none";
   deleteAllModal.style.display = "none";
+});
+
+// Завантаження даних із сервера
+async function loadStudents() {
+    const response = await fetch('server/load_content.php');
+    const students = await response.json();
+
+    const tbody = document.querySelector('tbody');
+    tbody.innerHTML = ''; // Очищення таблиці
+
+    students.forEach(student => {
+        const row = `
+            <tr>
+                <td><input type="checkbox" class="rowCheckbox" data-id="${student.id}"></td>
+                <td>${student.group_name}</td>
+                <td><strong>${student.first_name} ${student.last_name}</strong></td>
+                <td>${student.gender}</td>
+                <td><strong>${student.birthday}</strong></td>
+                <td><span class="status ${student.status ? 'green' : 'red'}"></span></td>
+                <td>
+                    <button class="edit" aria-label="Edit Student"><i class="fas fa-edit"></i></button>
+                    <button class="delete" aria-label="Delete Student" data-id="${student.id}"><i class="fas fa-times"></i></button>
+                </td>
+            </tr>
+        `;
+        tbody.insertAdjacentHTML('beforeend', row);
+    });
+}
+
+// Додавання студента
+async function addStudent(student) {
+    const response = await fetch('server/add_student.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(student)
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        loadStudents(); // Оновлення таблиці
+    } else {
+        console.error(result.error);
+    }
+}
+
+// Видалення студента
+async function deleteStudent(id) {
+    const response = await fetch('server/delete_student.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        loadStudents(); // Оновлення таблиці
+    } else {
+        console.error(result.error);
+    }
+}
+
+// Обробка подій
+document.addEventListener('DOMContentLoaded', () => {
+    const tbody = document.querySelector('tbody');
+    if (!tbody) {
+        console.error('Table body (tbody) not found!');
+        return;
+    }
+
+    loadStudents();
+
+    document.querySelector('#studentForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const student = {
+            group: document.querySelector('#group').value,
+            firstName: document.querySelector('#firstName').value,
+            lastName: document.querySelector('#lastName').value,
+            gender: document.querySelector('#gender').value,
+            birthday: document.querySelector('#birthday').value
+        };
+        await addStudent(student);
+    });
+
+    document.querySelector('tbody').addEventListener('click', async (e) => {
+        if (e.target.closest('.delete')) {
+            const id = e.target.closest('.delete').dataset.id;
+            await deleteStudent(id);
+        }
+    });
 });
