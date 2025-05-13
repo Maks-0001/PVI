@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+  header("Location: welcome.php");
+  exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,9 +17,8 @@
   <link rel="stylesheet" href="static/styles/navbar.css">
   <link rel="stylesheet" href="static/styles/table.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="manifest" href="manifest.json"/>
+  <link rel="manifest" href="manifest.json" />
   <script src="js/header.js" defer></script>
-
 </head>
 
 <body>
@@ -42,17 +49,12 @@
               <th>Options</th>
             </tr>
           </thead>
-          <tbody>
-            
-          </tbody>
+          <tbody></tbody>
         </table>
         <div class="pagination">
-          <button>&lt;</button>
-          <button class="active">1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>4</button>
-          <button>&gt;</button>
+          <button id="prevPage">&lt;</button>
+          <div id="paginationButtons"></div>
+          <button id="nextPage">&gt;</button>
         </div>
       </div>
     </div>
@@ -60,11 +62,11 @@
     <div id="studentModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <h2 id="modalTitle">Add Student</h2>    
-    
+        <h2 id="modalTitle">Add Student</h2>
+
         <form id="studentForm">
           <input type="hidden" id="studentId" name="id">
-    
+
           <label for="group">Group</label>
           <select name="group" id="group" required>
             <option value="">Select Group</option>
@@ -73,23 +75,23 @@
             <option value="PZ-23">PZ-23</option>
             <option value="PZ-24">PZ-24</option>
           </select>
-    
+
           <label for="firstName">First name</label>
           <input type="text" id="firstName" name="firstName" required>
-          
+
           <label for="lastName">Last name</label>
           <input type="text" id="lastName" name="lastName" required>
-    
+
           <label for="gender">Gender</label>
           <select id="gender" name="gender" required>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
-    
+
           <label for="birthday">Birthday</label>
           <input type="date" id="birthday" name="birthday" required>
-    
+
           <div class="modal-buttons">
             <button type="button" class="cancel-btn" id="cancelButton">Cancel</button>
             <button type="submit" id="submitButton">Create</button>
@@ -97,7 +99,7 @@
         </form>
       </div>
     </div>
-    
+
 
     <div id="deleteStudentModal" class="modal">
       <div class="modal-content">
@@ -124,9 +126,7 @@
     </div>
   </section>
 
-  
+
 </body>
 
 </html>
-
-

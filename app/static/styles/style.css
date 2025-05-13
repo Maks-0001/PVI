@@ -27,22 +27,32 @@ h1 {
 }
 
 .pagination {
-  margin-top: 70px;
+  margin-top: 20px;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination button {
   padding: 5px 10px;
   margin: 2px;
   cursor: pointer;
-  border: 1px solid black;
+  border: 1px solid #ddd;
   background: white;
-  font-size: 15px;
+  font-size: 14px;
+  border-radius: 5px;
 }
 
 .pagination button.active {
-  background: black;
+  background: #373a3e;
   color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  background: #f4f4f4;
+  color: #ccc;
+  cursor: not-allowed;
 }
 
 .add-btn {
@@ -157,7 +167,12 @@ select {
   cursor: pointer;
   border-radius: 3px;
 }
-  
+
+#confirmDelete {
+  background: black;
+  color: rgb(255, 255, 255);
+}
+
 .cancel-btn {
   background: #ccc;
   margin-right: 10px;
