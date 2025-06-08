@@ -1,0 +1,539 @@
+/* Lab_1/app/static/styles/messages.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f7f6; /* Світлий фон для всієї сторінки */
+}
+
+.messages-page-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Висота всього екрану мінус висота хедера (приблизно) */
+    padding: 0; /* Забираємо відступи, щоб контейнер займав всю ширину */
+    margin: 0;
+}
+
+.status-online {
+    color: #28a745; /* Green for online */
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+.status-offline {
+    color: #6c757d; /* Grey for offline */
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+/* Style for system messages in chat area */
+.system-message {
+    text-align: center;
+    color: #6c757d; /* Grey text */
+    font-style: italic;
+    font-size: 0.9em;
+    padding: 5px 0;
+    margin: 5px auto;
+    max-width: 80%;
+}
+
+.messages-header {
+    padding: 15px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    background-color: #fff; /* Білий фон для заголовка сторінки */
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.chat-layout-container {
+    display: flex;
+    flex-grow: 1; /* Дозволяє цьому контейнеру зайняти весь доступний простір */
+    overflow: hidden; /* Запобігає прокрутці всього лейауту, якщо вміст більший */
+    background-color: #fff; /* Білий фон для основного контенту чату */
+}
+
+/* Ліва панель - список чатів */
+.chat-list-panel {
+    width: 300px; /* Фіксована ширина для списку чатів */
+    min-width: 250px;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9; /* Трохи інший фон для лівої панелі */
+}
+
+.chat-list-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.chat-list-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.new-chat-button {
+    background-color: #5cb85c; /* Зелений колір для кнопки */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.new-chat-button i {
+    margin-right: 5px;
+}
+
+.new-chat-button:hover {
+    background-color: #4cae4c;
+}
+
+.chat-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; /* Прокрутка, якщо чатів багато */
+    flex-grow: 1;
+}
+
+.chat-list-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eef;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.chat-list-item:hover {
+    background-color: #e9e9e9;
+}
+
+.chat-list-item.active-chat {
+    background-color: #d1e7fd; /* Колір для активного чату */
+    border-left: 3px solid #0d6efd;
+}
+
+.chat-avatar img,
+.chat-avatar .default-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #ccc; /* Колір для дефолтного аватара */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+}
+ .chat-avatar .default-avatar i {
+     color: #fff;
+ }
+
+.chat-info .chat-name {
+    font-weight: bold;
+    margin-bottom: 3px;
+    color: #333;
+}
+
+.chat-info .last-message {
+    font-size: 0.9em;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px; /* Обмеження ширини для тексту останнього повідомлення */
+}
+
+/* Права панель - активний чат */
+.active-chat-panel {
+    flex-grow: 1; /* Займає весь залишок простору */
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* Білий фон для області чату */
+}
+
+.chat-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa; /* Світлий фон для хедера чату */
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.chat-members {
+    display: flex;
+    align-items: center;
+}
+ .chat-members-title {
+     font-size: 0.9em;
+     color: #666;
+     margin-right: 10px;
+ }
+
+.member-avatar img,
+.member-avatar .default-avatar-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: -5px; /* Ефект накладання аватарів */
+    border: 2px solid white;
+    background-color: #bbb;
+    display: inline-flex; /* Для правильного відображення з border */
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+}
+ .member-avatar .default-avatar-small i {
+     color: #fff;
+ }
+
+.add-member-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    cursor: pointer;
+    border: 2px solid white;
+}
+ .add-member-icon:hover {
+     background-color: #d0d0d0;
+ }
+
+.messages-area {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto; /* Прокрутка для повідомлень */
+    background-color: #e9ecef; /* Фон для області повідомлень, як у макеті */
+    display: flex;
+    flex-direction: column;
+}
+
+.message-item {
+    display: flex;
+    margin-bottom: 15px;
+    max-width: 70%; /* Максимальна ширина повідомлення */
+}
+
+.message-item .msg-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    flex-shrink: 0; /* Щоб аватар не стискався */
+}
+ .message-item .msg-avatar i {
+     color: #fff;
+ }
+
+
+.message-content {
+    padding: 10px 15px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.message-item.sent .message-content {
+    background-color: #dcf8c6; /* Колір для відправлених повідомлень */
+    border-bottom-right-radius: 5px;
+}
+
+.message-item.received .message-content {
+    background-color: #ffffff; /* Колір для отриманих повідомлень */
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+.message-item.sent {
+     align-self: flex-end; /* Вирівнювання своїх повідомлень праворуч */
+     flex-direction: row-reverse; /* Аватар праворуч */
+ }
+ .message-item.sent .msg-avatar {
+     margin-right: 0;
+     margin-left: 10px;
+ }
+
+
+.message-sender {
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 3px;
+    display: block;
+}
+ .message-item.sent .message-sender {
+     text-align: right;
+ }
+
+.message-text {
+    font-size: 0.95em;
+    color: #333;
+    word-wrap: break-word; /* Перенос довгих слів */
+}
+
+.message-timestamp {
+    font-size: 0.75em;
+    color: #aaa;
+    margin-top: 5px;
+    display: block;
+    text-align: right;
+}
+ .message-item.received .message-timestamp {
+     text-align: left;
+ }
+
+
+.message-input-area {
+    padding: 15px 20px;
+    border-top: 1px solid #e0e0e0;
+    background-color: #f8f9fa; /* Світлий фон для області вводу */
+    display: flex;
+    justify-content: center;
+    
+}
+
+.message-input-area input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 20px; /* Округлі кути для поля вводу */
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+ .message-input-area input[type="text"]:focus {
+     outline: none;
+     border-color: #86b7fe;
+     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+ }
+
+.message-input-area button {
+    background-color: #0d6efd; /* Синій колір для кнопки відправки */
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-input-area button:hover {
+    background-color: #0b5ed7;
+}
+
+/* Адаптивність */
+ @media (max-width: 768px) {
+     .chat-list-panel {
+         width: 100%; /* На мобільних ліва панель може займати всю ширину, якщо активна */
+         /* Можна додати логіку для показу/приховування панелей на мобільних */
+         min-width: unset;
+     }
+
+     .messages-page-container {
+         height: calc(100vh - 50px); /* Менша висота хедера на мобільних */
+     }
+     .chat-layout-container {
+         flex-direction: column; /* Можливо, стек панелей на дуже малих екранах */
+     }
+ }
+/* Стилі для модального вікна створення нового чату (#newChatModal) */
+#newChatModal .modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#newChatModal #createChatForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#newChatModal .form-group {
+    margin-bottom: 15px;
+}
+
+#newChatModal .form-group label,
+#newChatModal .form-group p {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+#newChatModal input[type="text"].form-control,
+#newChatModal #studentListContainer {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Важливо для правильного розрахунку ширини */
+    font-size: 14px;
+}
+
+#newChatModal input[type="text"].form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+#newChatModal #studentListContainer {
+    max-height: 150px; /* Зменшив трохи, щоб краще виглядало */
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+#newChatModal #studentListContainer .student-select-item {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+}
+#newChatModal #studentListContainer .student-select-item input[type="checkbox"] {
+    margin-right: 8px;
+}
+#newChatModal #studentListContainer .student-select-item label {
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+
+#newChatModal button[type="submit"].btn.btn-primary {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    align-self: flex-end; /* Кнопка праворуч */
+}
+
+#newChatModal button[type="submit"].btn.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+#newChatModal .close {
+    position: absolute; /* Позиціонування кнопки закриття */
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#newChatModal .close:hover {
+    color: #777;
+}
+
+/* Стилі для модального вікна додавання учасників до чату (#addMembersModal) */
+#addMembersModal .modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#addMembersModal #addMembersForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#addMembersModal .form-group {
+    margin-bottom: 15px;
+}
+
+#addMembersModal .form-group p { /* Стиль для тексту "Оберіть студентів для додавання:" */
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+#addMembersModal #addMembersStudentListContainer {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+#addMembersModal #addMembersStudentListContainer .student-select-item {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+#addMembersModal #addMembersStudentListContainer .student-select-item input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+#addMembersModal #addMembersStudentListContainer .student-select-item label {
+    font-weight: normal; /* Звичайний шрифт для імен студентів у списку */
+    margin-bottom: 0;
+}
+
+#addMembersModal button[type="submit"].btn.btn-primary {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    align-self: flex-end; /* Кнопка праворуч */
+}
+
+#addMembersModal button[type="submit"].btn.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+#addMembersModal .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#addMembersModal .close:hover {
+    color: #777;
+}

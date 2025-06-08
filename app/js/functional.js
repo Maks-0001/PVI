@@ -1,25 +1,76 @@
-const bell = document.getElementById('bell');
-const indicator = document.getElementById('notification-indicator');
+function initializeBellNotifications() { 
+    window.bellNotificationsInitialized = true; // Встановлюємо прапорець на початку
+    const bell = document.getElementById('bell'); 
+    const indicator = document.getElementById('notification-indicator'); 
+    const notificationDrop = document.querySelector('.notification-drop'); 
+
+    if (!bell || !indicator || !notificationDrop) { 
+        return;
+    }
+
+    const hasUnread = localStorage.getItem('hasUnreadNotifications') === 'true'; 
+    if (hasUnread) { 
+        if(indicator) indicator.style.display = 'block'; 
+    } else {
+        if(indicator) indicator.style.display = 'none'; 
+    }
+
+    if (typeof window.updateNotificationPlaceholder === 'function') { 
+        window.updateNotificationPlaceholder(); 
+    }
+
+    bell.onclick = function () { 
+        window.location.href = "messages.php";  
+
+        if (typeof window.socket !== 'undefined' && window.socket && window.socket.connected) { 
+            window.socket.emit('markNotificationsAsRead', {}); 
+        } else {
+            console.warn("Socket не доступний для markNotificationsAsRead. Індикатор буде сховано локально."); 
+        }
+
+        if(indicator) indicator.style.display = 'none'; 
+        localStorage.removeItem('hasUnreadNotifications'); 
+        localStorage.setItem('notificationsHidden', 'true');  
+
+        const currentNotificationDrop = document.querySelector(".notification-drop"); 
+        if (currentNotificationDrop) { 
+            currentNotificationDrop.querySelectorAll('.notification-item:not(.notification-placeholder)').forEach(item => item.remove()); 
+        }
+        if (typeof window.updateNotificationPlaceholder === 'function') { 
+            window.updateNotificationPlaceholder(); 
+        }
+    };
+
+    window.showNotificationIndicator = function(animateBell = true) { 
+         const bell = document.getElementById('bell'); 
+         const indicator = document.getElementById('notification-indicator'); 
+         if (indicator) indicator.style.display = 'block'; 
+         localStorage.setItem('hasUnreadNotifications', 'true'); 
+         localStorage.removeItem('notificationsHidden'); 
+
+         if (animateBell && bell) { 
+             bell.style.animation = 'none'; 
+             void bell.offsetWidth; 
+             bell.style.animation = 'myAnim 1s ease 0s 1 normal forwards'; 
+             setTimeout(() => {
+                 if(bell) bell.style.animation = ''; 
+             }, 1000); 
+         }
+    };
+    window.hideNotificationIndicatorIfNoUnread = function() { 
+        const notificationDrop = document.querySelector(".notification-drop"); 
+        if (notificationDrop && notificationDrop.querySelectorAll('.notification-item:not(.notification-placeholder)').length === 0) { 
+            const bellIndicator = document.getElementById('notification-indicator'); 
+            if (bellIndicator) bellIndicator.style.display = 'none'; 
+            localStorage.removeItem('hasUnreadNotifications'); 
+        }
+    };
+}
+
+
 const aDashboard = document.getElementById('dashboard');
 const aIndex = document.getElementById('index');
 const aTasks = document.getElementById('tasks');
-
-let count = 1;
-
-// Дзіночок та індикатор
-if (localStorage.getItem('notificationsHidden') === 'true') {
-  indicator.style.display = 'none';
-}
-
-bell.onclick = function () {
-  localStorage.setItem('notificationsHidden', 'true');
-  indicator.style.display = 'none';
-  window.location.href = "messages.php";
-};
-
-bell.onanimationend = function () {
-  indicator.style.display = 'block';
-};
 
 // Виділення активної сторінки
 const currentPage_1 = window.location.pathname;

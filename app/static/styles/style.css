@@ -98,7 +98,7 @@ h1 {
 
 /* Модальне вікно для додавання студента */
 .modal {
-  display: none;
+  display: none; /* JavaScript буде керувати видимістю */
   position: fixed;
   z-index: 10;
   left: 0;
@@ -110,12 +110,13 @@ h1 {
 
 .modal-content {
   background-color: white;
-  width: 45%;
+  /* width: 45%; */ /* Вбудований стиль у messages.php (width: 50%) має перевагу */
   padding: 20px;
-  margin: auto;
-  margin-top: 1%;
+  margin: auto; /* Для центрування */
+  /* margin-top: 1%; */ /* Вбудований стиль у messages.php (margin: 5% auto) має перевагу */
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: relative; /* Додано для кращого позиціонування внутрішніх елементів, як-от кнопки закриття */
 }
 
 .close-edit {
@@ -132,7 +133,7 @@ h1 {
 
 form {
   display: flex;
-  flex-direction: column;
+  
 }
 
 label {

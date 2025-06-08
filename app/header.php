@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <script src="http://localhost:3001/socket.io/socket.io.js"></script>
 </head>
 
 <body>
@@ -23,31 +24,9 @@
 
       <div class="right-side">
         <div class="notification-wrapper">
-          <a href="messages.php" aria-label="messages"><i class="fa-solid fa-bell" id="bell"></i></a>
-          <span class="indicator" id="notification-indicator"></span>
-          <!-- Випадаюче вікно для сповіщень -->
+          <a href="#" aria-label="messages" id="bellLink"><i class="fa-solid fa-bell" id="bell"></i></a>
+          <span class="indicator" id="notification-indicator" style="display: none;"></span>
           <div class="notification-drop">
-            <div class="notification-item">
-              <img src="static/images/istockphoto-1495088043-612x612.jpg" alt="Avatar">
-              <div class="notification-content">
-                <strong>Студент 1</strong>
-                <p>Текст повідомлення...</p>
-              </div>
-            </div>
-            <div class="notification-item">
-              <img src="static/images/istockphoto-1495088043-612x612.jpg" alt="Avatar">
-              <div class="notification-content">
-                <strong>Студент 2</strong>
-                <p>Текст повідомлення...</p>
-              </div>
-            </div>
-            <div class="notification-item">
-              <img src="static/images/istockphoto-1495088043-612x612.jpg" alt="Avatar">
-              <div class="notification-content">
-                <strong>Студент 3</strong>
-                <p>Текст повідомлення...</p>
-              </div>
-            </div>
           </div>
         </div>
         <div class="user-info">
